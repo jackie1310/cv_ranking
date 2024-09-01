@@ -1,7 +1,6 @@
 from fastapi import APIRouter, File, UploadFile, Form, Body, HTTPException, status
 from src.candidate import service
 from src.candidate.schemas import ResponseSchema, RequestSchema
-from firebase_storage import upload_file_to_firebase
 from mongo_db import connectAnalysis
 from bson import ObjectId
 
@@ -44,10 +43,10 @@ async def analyse_candidate(file_url: str = Body(...)):
     return result
 
 
-@router.post("/upload")
-async def upload_file(email: str = Form(...), file: UploadFile = File(...)):
-    file_url = upload_file_to_firebase(email=email, file=file)
-    return file_url
+# @router.post("/upload")
+# async def upload_file(email: str = Form(...), file: UploadFile = File(...)):
+#     file_url = upload_file_to_firebase(email=email, file=file.file)
+#     return file_url
 
 @router.get("/get_all_analysis")
 def get_all_analysis():

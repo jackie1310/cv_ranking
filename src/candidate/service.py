@@ -9,7 +9,6 @@ from langchain_community.document_loaders import Docx2txtLoader, PyPDFLoader
 from langchain_openai import ChatOpenAI
 from src.candidate.config import candidate_config
 from src.candidate.prompts import fn_candidate_analysis, system_prompt_candidate
-from firebase_storage import upload_file_to_firebase
 # from src.utils import LOGGER
 
 
