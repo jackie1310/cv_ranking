@@ -89,24 +89,24 @@ def delete_file_from_folder(folder_name, filename):
 def upload_file_to_firebase(email, file):
     try:
         # Save the uploaded file to a temporary location
-        temp_file_path = f"docx/{file.filename}"
+        # temp_file_path = f"docx/{file.filename}"
         # temp_file_path = os.path.join("/tmp", f"{uuid.uuid4()}_{file.filename}")
-        with open(temp_file_path, "wb") as temp_file:
-            temp_file.write(file.file.read())
+        # with open(temp_file_path, "wb") as temp_file:
+        #     temp_file.write(file.file.read())
         # file.file.save(temp_file_path)
         
-        if is_docx(temp_file_path):
-            # Convert .docx to .pdf
-            converted_file_path = convert_docx_to_pdf(temp_file_path)
-        else:
-            converted_file_path = temp_file_path
+        # if is_docx(temp_file_path):
+        #     # Convert .docx to .pdf
+        #     converted_file_path = convert_docx_to_pdf(temp_file_path)
+        # else:
+        #     converted_file_path = temp_file_path
         
         # Generate a unique filename
-        unique_filename = f"{uuid.uuid4()}_{converted_file_path.split('/')[-1]}"
+        unique_filename = f"{uuid.uuid4()}_{file.filename}"
         blob = bucket.blob(f"{email}/{unique_filename}")
 
         # Upload the file to Firebase Storage
-        blob.upload_from_filename(converted_file_path)
+        blob.upload_from_file(unique_filename)
 
         # Get the file's public URL
         blob.make_public()
@@ -117,12 +117,12 @@ def upload_file_to_firebase(email, file):
     except Exception as e:
         return {"error": str(e)}
 
-    finally:
-        # Clean up the temporary files
-        if temp_file_path:
-            os.remove(temp_file_path)
-        if converted_file_path and converted_file_path != temp_file_path:
-            os.remove(converted_file_path)
+    # finally:
+    #     # Clean up the temporary files
+    #     if temp_file_path:
+    #         os.remove(temp_file_path)
+    #     if converted_file_path and converted_file_path != temp_file_path:
+    #         os.remove(converted_file_path)
 
 # Example usage
 # Assume `file` is an object with attributes `filename` and `file` (file content).
