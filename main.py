@@ -12,7 +12,7 @@ app = FastAPI(title=settings.APP_NAME)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://cybersoft-cv-ranking.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://cybersoft-cv-ranking.vercel.app", "https://cv-ranking-front-end-ver2.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
