@@ -21,9 +21,6 @@ def generate_content(job, candidate):
 
 
 def analyse_matching(matching_data):
-    start = time.time()
-    # LOGGER.info("Start analyse matching")
-
     content = generate_content(job=matching_data.job, candidate=matching_data.candidate)
 
     llm = ChatOpenAI(model=matching_config.MODEL_NAME, temperature=0.5)
@@ -59,11 +56,8 @@ def analyse_matching(matching_data):
 
     json_output["score"] = final_score
 
-    # LOGGER.info("Done analyse matching")
-    # LOGGER.info(f"Time analyse matching: {time.time() - start}")
-
     return json_output
 
 
-def get_content(job, candidate):
-    return {"job": job, "candidate": candidate}
+# def get_content(job, candidate):
+#     return {"job": job, "candidate": candidate}

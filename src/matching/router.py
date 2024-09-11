@@ -7,7 +7,6 @@ from bson import ObjectId
 router = APIRouter()
 
 
-# @router.post("/analyse", response_model=ResponseSchema)
 match_collection = connectMatch()
 @router.post("/analyse")
 async def analyse_matching(matching_data: MatchingSchema):
@@ -57,12 +56,12 @@ async def delete_matching(job_id: str, candidate_id: str):
     else:
         raise HTTPException(status_code=402, detail="Matching not found")
     
-@router.delete("/test_matching")
-async def test_matching(job_id: str, candidate_id: str):
-    # result = match_collection.delete_one({"job_id": job_id, "candidate_id": candidate_id})
+# @router.delete("/test_matching")
+# async def test_matching(job_id: str, candidate_id: str):
+#     # result = match_collection.delete_one({"job_id": job_id, "candidate_id": candidate_id})
     
-    # if result.deleted_count == 1:
-    #     return {"message": "Matching deleted successfully"}
-    # else:
-    #     raise HTTPException(status_code=404, detail="Matching not found")
-    return {"job_id": job_id, "candidate_id": candidate_id}
+#     # if result.deleted_count == 1:
+#     #     return {"message": "Matching deleted successfully"}
+#     # else:
+#     #     raise HTTPException(status_code=404, detail="Matching not found")
+#     return {"job_id": job_id, "candidate_id": candidate_id}

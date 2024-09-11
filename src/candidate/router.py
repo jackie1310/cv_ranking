@@ -1,6 +1,5 @@
-from fastapi import APIRouter, File, UploadFile, Form, Body, HTTPException, status
+from fastapi import APIRouter, Body, HTTPException, status
 from src.candidate import service
-from src.candidate.schemas import ResponseSchema, RequestSchema
 from mongo_db import connectAnalysis
 from bson import ObjectId
 
@@ -16,7 +15,7 @@ async def analyse_candidate(file_url: str = Body(...)):
     # file_name = await service.save_cv_candidate(file=file)
     # file_url = upload_file_to_firebase(email=email, file=file)
         
-    cv_content = service.load_pdf_docx(file_url=file_url)
+    cv_content = service.load_pdf(file_url=file_url)
 
     result = service.analyse_candidate(cv_content=cv_content)
     

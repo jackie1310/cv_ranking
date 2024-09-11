@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Body, HTTPException, status
 from src.job import service
-from src.job.schemas import JobSchema, ResponseSchema
+from src.job.schemas import JobSchema
 from mongo_db import connectJob
 from bson import ObjectId
 

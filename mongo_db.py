@@ -19,3 +19,4 @@ def connectJob():
 def connectMatch():
     match_collection = db["matchings"]
     return match_collection
+

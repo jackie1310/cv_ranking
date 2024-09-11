@@ -1,8 +1,6 @@
 import json
 import os
 import time
-from datetime import datetime
-from fastapi import UploadFile, File
 import jsbeautifier
 from langchain.schema import HumanMessage, SystemMessage
 from langchain_community.document_loaders import Docx2txtLoader, PyPDFLoader
@@ -36,7 +34,7 @@ def output2json(output):
     return json.loads(jsbeautifier.beautify(output["function_call"]["arguments"], opts))
 
 
-def load_pdf_docx(file_url):
+def load_pdf(file_url):
     # Determine the file type and choose the appropriate loader
     # if os.path.basename(file_path).lower().endswith((".pdf", ".docx")):
         # loader = (
@@ -51,16 +49,6 @@ def load_pdf_docx(file_url):
     for page in documents:
         content += page.page_content
 
-    return content
-
-
-def read_cv_candidate(file_name):
-    file_path = candidate_config.CV_UPLOAD_DIR + file_name
-
-    documents = load_pdf_docx(file_path=file_path)
-    content = ""
-    for page in documents:
-        content += page.page_content
     return content
 
 

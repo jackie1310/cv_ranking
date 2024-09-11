@@ -6,12 +6,13 @@ from src.candidate.auth import router as candidate_auth
 from config import settings
 from src.job.router import router as job_router
 from src.matching.router import router as matching_router
+from src.analysing.router import router as analysing_router
 
 app = FastAPI(title=settings.APP_NAME)  
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://cv-ranking-front-end.vercel.app", "https://cybersoft-cv-ranking.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://cybersoft-cv-ranking.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -46,3 +47,4 @@ app.include_router(candidate_router, prefix="/candidate", tags=["Candidate"])
 app.include_router(candidate_auth, prefix="/auth", tags=["Auth"])
 app.include_router(job_router, prefix="/job", tags=["Job"])
 app.include_router(matching_router, prefix="/matching", tags=["Matching"])
+app.include_router(analysing_router, prefix="/analysing", tags=["Strength-Weakness"])
