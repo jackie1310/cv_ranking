@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, HTTPException, status
+from fastapi import APIRouter, UploadFile, File, HTTPException, status
 from src.candidate import service
 from mongo_db import connectAnalysis
 from bson import ObjectId
@@ -8,14 +8,11 @@ router = APIRouter()
 
 # @router.post("/analyse", response_model=ResponseSchema)
 @router.post("/analyse")
-async def analyse_candidate(file_url: str = Body(...)):
-    # if file.content_type != 'application/json':
-    #     raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Wow, That's not allowed")
+async def analyse_candidate(file: UploadFile = File(...)):
 
-    # file_name = await service.save_cv_candidate(file=file)
-    # file_url = upload_file_to_firebase(email=email, file=file)
+    file_name = await service.save_cv_candidate(file=file)
         
-    cv_content = service.load_pdf(file_url=file_url)
+    cv_content = service.read_cv_candidate(file_name=file_name)
 
     result = service.analyse_candidate(cv_content=cv_content)
     
@@ -47,7 +44,7 @@ async def analyse_candidate(file_url: str = Body(...)):
 #     file_url = upload_file_to_firebase(email=email, file=file.file)
 #     return file_url
 
-@router.get("/get_all_analysis")
+@router.get("/get_all_candidates")
 def get_all_analysis():
     analysis_collection = connectAnalysis()
     list_of_analysis = []
@@ -58,7 +55,7 @@ def get_all_analysis():
     return list_of_analysis
 
 
-@router.delete("/delete_analysis/{_id}", status_code=status.HTTP_200_OK)
+@router.delete("/delete_candidate/{_id}", status_code=status.HTTP_200_OK)
 def delete_analysis(_id: str):
     analysis_collection = connectAnalysis()
     

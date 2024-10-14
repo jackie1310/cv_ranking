@@ -2,7 +2,7 @@ from typing import Union
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from src.candidate.router import router as candidate_router
-from src.candidate.auth import router as candidate_auth
+# from src.candidate.auth import router as candidate_auth
 from config import settings
 from src.job.router import router as job_router
 from src.matching.router import router as matching_router
@@ -44,7 +44,7 @@ async def healthcheck() -> bool:
 #         return {"error": str(e)}
 
 app.include_router(candidate_router, prefix="/candidate", tags=["Candidate"])
-app.include_router(candidate_auth, prefix="/auth", tags=["Auth"])
+# app.include_router(candidate_auth, prefix="/auth", tags=["Auth"])
 app.include_router(job_router, prefix="/job", tags=["Job"])
 app.include_router(matching_router, prefix="/matching", tags=["Matching"])
 app.include_router(analysing_router, prefix="/analysing", tags=["Strength-Weakness"])
